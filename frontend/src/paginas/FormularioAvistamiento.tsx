@@ -6,7 +6,7 @@
  */
 
 import { FormEvent, useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { crearAvistamiento } from "../api/avistamientosApi";
 import { obtenerCriaturas } from "../api/criaturasApi";
 import { AvistamientoFormulario, Criatura } from "../tipos";
@@ -68,15 +68,18 @@ export function FormularioAvistamiento() {
   if (cargando) return <p>Cargando formulario...</p>;
 
   return (
-    <div>
-      <h1>Registrar avistamiento</h1>
-
-      {error && <p>Error: {error}</p>}
-
-      <form onSubmit={manejarEnvio}>
-        <p>
-          <label htmlFor="criatura">Criatura: </label>
-          <br />
+    <main className="page-shell">
+      <header className="topbar">
+        <Link className="brand" to="/"><span className="brand-mark" aria-hidden="true">P</span><span><strong>Departamento de Pawnee</strong><small>Fenómenos inexplicables</small></span></Link>
+        <nav className="main-nav" aria-label="Navegación principal"><Link className="nav-link" to="/">Criaturas</Link><Link className="nav-link nav-link-active" to="/avistamientos">Avistamientos</Link></nav>
+      </header>
+      <section className="page-heading page-heading-form"><div><p className="eyebrow">Registro central · Área 02</p><h1>Registrar avistamiento</h1><p className="page-description">Documenta un nuevo encuentro o reporte de campo.</p></div><Link className="text-link" to="/avistamientos">← Volver a la bitácora</Link></section>
+      <section className="form-card">
+      {error && <p className="feedback-message feedback-error form-error">Error: {error}</p>}
+      <form className="creature-form" onSubmit={manejarEnvio}>
+        <div className="form-section-heading"><span className="section-number">02</span><div><h2>Datos del avistamiento</h2><p>Registra cuándo, dónde y quién observó la entidad.</p></div></div>
+        <div className="form-grid">
+        <div className="form-field form-field-wide"><label htmlFor="criatura">Criatura observada</label>
           <select
             id="criatura"
             value={form.criatura}
@@ -88,58 +91,42 @@ export function FormularioAvistamiento() {
               </option>
             ))}
           </select>
-        </p>
-
-        <p>
-          <label htmlFor="testigo">Testigo: </label>
-          <br />
+        </div>
+        <div className="form-field"><label htmlFor="testigo">Testigo</label>
           <input
             id="testigo"
             type="text"
             value={form.testigo}
             onChange={(e) => setForm({ ...form, testigo: e.target.value })}
           />
-        </p>
-
-        <p>
-          <label htmlFor="ubicacion">Ubicación: </label>
-          <br />
+        </div>
+        <div className="form-field"><label htmlFor="ubicacion">Ubicación</label>
           <input
             id="ubicacion"
             type="text"
             value={form.ubicacion}
             onChange={(e) => setForm({ ...form, ubicacion: e.target.value })}
           />
-        </p>
-
-        <p>
-          <label htmlFor="fecha">Fecha: </label>
-          <br />
+        </div>
+        <div className="form-field"><label htmlFor="fecha">Fecha</label>
           <input
             id="fecha"
             type="date"
             value={form.fecha}
             onChange={(e) => setForm({ ...form, fecha: e.target.value })}
           />
-        </p>
-
-        <p>
-          <label htmlFor="descripcion">Descripción (opcional): </label>
-          <br />
-          <input
+        </div>
+        <div className="form-field form-field-wide"><label htmlFor="descripcion">Descripción <span>(opcional)</span></label><textarea
             id="descripcion"
-            type="text"
             value={form.descripcion}
             onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
           />
-        </p>
-
-        <p>
-          <button type="submit" disabled={guardando}>
+        </div></div>
+        <div className="form-actions"><Link className="button button-secondary" to="/avistamientos">Cancelar</Link><button className="button button-primary" type="submit" disabled={guardando}>
             {guardando ? "Guardando..." : "Registrar avistamiento"}
-          </button>
-        </p>
+          </button></div>
       </form>
-    </div>
+      </section>
+    </main>
   );
 }
