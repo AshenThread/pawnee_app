@@ -5,7 +5,7 @@
  */
 
 import { FormEvent, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { crearCriatura, actualizarCriatura, obtenerCriaturaPorId } from "../api/criaturasApi";
 import { CriaturaFormulario, TIPOS_CRIATURA, ESTADOS_INVESTIGACION } from "../tipos";
 
@@ -81,26 +81,58 @@ export function FormularioCriatura() {
   if (cargando) return <p>Cargando datos de la criatura...</p>;
 
   return (
-    <div>
-      <h1>{esEdicion ? "Editar criatura" : "Registrar criatura nueva"}</h1>
+    <main className="page-shell">
+      <header className="topbar">
+        <Link className="brand" to="/">
+          <span className="brand-mark" aria-hidden="true">P</span>
+          <span>
+            <strong>Departamento de Pawnee</strong>
+            <small>Fenómenos inexplicables</small>
+          </span>
+        </Link>
+        <nav className="main-nav" aria-label="Navegación principal">
+          <Link className="nav-link nav-link-active" to="/">Criaturas</Link>
+          <Link className="nav-link" to="/avistamientos">Avistamientos</Link>
+        </nav>
+      </header>
 
-      {error && <p>Error: {error}</p>}
+      <section className="page-heading page-heading-form">
+        <div>
+          <p className="eyebrow">Registro central · Área 01</p>
+          <h1>{esEdicion ? "Editar criatura" : "Registrar criatura"}</h1>
+          <p className="page-description">
+            {esEdicion ? "Actualiza la ficha de esta entidad." : "Añade una nueva entidad al catálogo del departamento."}
+          </p>
+        </div>
+        <Link className="text-link" to="/">← Volver al directorio</Link>
+      </section>
 
-      <form onSubmit={manejarEnvio}>
-        <p>
-          <label htmlFor="nombre">Nombre: </label>
-          <br />
+      <section className="form-card">
+        {error && <p className="feedback-message feedback-error form-error">Error: {error}</p>}
+
+        <form className="creature-form" onSubmit={manejarEnvio}>
+          <div className="form-section-heading">
+            <span className="section-number">01</span>
+            <div>
+              <h2>Identificación</h2>
+              <p>Información básica de la entidad.</p>
+            </div>
+          </div>
+
+          <div className="form-grid">
+            <div className="form-field form-field-wide">
+              <label htmlFor="nombre">Nombre de la criatura</label>
           <input
             id="nombre"
             type="text"
+                placeholder="Ej. El Guardián del Lago"
             value={form.nombre}
             onChange={(e) => setForm({ ...form, nombre: e.target.value })}
           />
-        </p>
+            </div>
 
-        <p>
-          <label htmlFor="tipo">Tipo: </label>
-          <br />
+            <div className="form-field">
+              <label htmlFor="tipo">Tipo de entidad</label>
           <select
             id="tipo"
             value={form.tipo}
@@ -112,35 +144,33 @@ export function FormularioCriatura() {
               </option>
             ))}
           </select>
-        </p>
+            </div>
 
-        <p>
-          <label htmlFor="habilidades">Habilidades (separadas por comas): </label>
-          <br />
+            <div className="form-field">
+              <label htmlFor="nivelPeligro">Nivel de peligro <span>(1–10)</span></label>
+              <input
+                id="nivelPeligro"
+                type="number"
+                min={1}
+                max={10}
+                value={form.nivelPeligro}
+                onChange={(e) => setForm({ ...form, nivelPeligro: Number(e.target.value) })}
+              />
+            </div>
+
+            <div className="form-field form-field-wide">
+              <label htmlFor="habilidades">Habilidades <span>(separadas por comas)</span></label>
           <input
             id="habilidades"
             type="text"
+                placeholder="Ej. invisibilidad, telepatía"
             value={habilidadesTexto}
             onChange={(e) => setHabilidadesTexto(e.target.value)}
           />
-        </p>
+            </div>
 
-        <p>
-          <label htmlFor="nivelPeligro">Nivel de peligro (1-10): </label>
-          <br />
-          <input
-            id="nivelPeligro"
-            type="number"
-            min={1}
-            max={10}
-            value={form.nivelPeligro}
-            onChange={(e) => setForm({ ...form, nivelPeligro: Number(e.target.value) })}
-          />
-        </p>
-
-        <p>
-          <label htmlFor="estado">Estado: </label>
-          <br />
+            <div className="form-field">
+              <label htmlFor="estado">Estado de investigación</label>
           <select
             id="estado"
             value={form.estado}
@@ -152,14 +182,17 @@ export function FormularioCriatura() {
               </option>
             ))}
           </select>
-        </p>
+            </div>
+          </div>
 
-        <p>
-          <button type="submit" disabled={guardando}>
-            {guardando ? "Guardando..." : esEdicion ? "Guardar cambios" : "Crear criatura"}
-          </button>
-        </p>
-      </form>
-    </div>
+          <div className="form-actions">
+            <Link className="button button-secondary" to="/">Cancelar</Link>
+            <button className="button button-primary" type="submit" disabled={guardando}>
+              {guardando ? "Guardando..." : esEdicion ? "Guardar cambios" : "Crear criatura"}
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
   );
 }
