@@ -62,6 +62,8 @@ td { border-top: 1px solid #edf0ed; color: #40504a; font-size: 13px; padding: 16
 .creature-image { align-items: center; background: #e7f0ce; border-radius: 8px; color: #49631c; display: flex; flex: 0 0 34px; height: 34px; justify-content: center; overflow: hidden; width: 34px; }
 .creature-image img { height: 100%; object-fit: cover; width: 100%; }
 .creature-image span { font-size: 17px; }
+.icon { display: block; height: 20px; object-fit: contain; width: 20px; }
+.creature-image .icon { height: 24px; width: 24px; }
 .creature-image-mitica { background: #eee6ff; color: #7046a6; }
 .creature-image-elemental { background: #fff0db; color: #9b5d1a; }
 .creature-image-mecanica { background: #e5edf5; color: #42677f; }
@@ -87,6 +89,7 @@ td { border-top: 1px solid #edf0ed; color: #40504a; font-size: 13px; padding: 16
 .inline-retry { background: transparent; border: 0; color: #3d695a; cursor: pointer; display: block; font-size: 12px; font-weight: 700; margin: 10px auto 0; text-decoration: underline; }
 .empty-state { padding: 54px 24px; text-align: center; }
 .empty-icon { align-items: center; background: #e7f0ce; border-radius: 50%; color: #49631c; display: flex; font-size: 24px; height: 52px; justify-content: center; margin: 0 auto 15px; width: 52px; }
+.empty-icon-image { background: #e7f0ce; border-radius: 50%; height: 52px; margin: 0 auto 15px; padding: 13px; width: 52px; }
 .empty-state h3 { color: #193f35; font-size: 17px; margin: 0 0 7px; }
 .empty-state p { color: #758079; font-size: 13px; margin: 0 auto 20px; }
 .form-card { background: #fff; border: 1px solid #e2e8e1; border-radius: 10px; max-width: 840px; }
