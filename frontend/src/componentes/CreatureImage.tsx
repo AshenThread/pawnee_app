@@ -1,13 +1,17 @@
 import { Criatura } from "../tipos";
 
-const IMAGENES_SVG = [
-  "/creatures/dragon.svg",
-  "/creatures/tornado.svg",
-  "/creatures/river.svg",
-  "/creatures/space-squirrel.svg",
-  "/creatures/fireflies.svg",
-  "/creatures/ghost.svg",
-];
+const IMAGEN_POR_NOMBRE: Record<string, string> = {
+  "el dragon del estacionamiento": "/creatures/dragon.svg",
+  "tornado azulado": "/creatures/tornado.svg",
+  "el brillo del rio wamapo": "/creatures/river.svg",
+  "la ardilla del martes": "/creatures/space-squirrel.svg",
+  "el fantasma": "/creatures/ghost.svg",
+};
+const IMAGEN_POR_DEFECTO = "/creatures/entity.svg";
+
+function normalizarNombre(nombre: string) {
+  return nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+}
 
 export function CreatureImage({
   criatura,
@@ -16,11 +20,7 @@ export function CreatureImage({
   criatura: Pick<Criatura, "nombre" | "tipo" | "imagenUrl">;
   large?: boolean;
 }) {
-  const indice = [...criatura.nombre].reduce(
-    (total, caracter) => total + caracter.charCodeAt(0),
-    0
-  ) % IMAGENES_SVG.length;
-  const imagenPredeterminada = IMAGENES_SVG[indice];
+  const imagenPredeterminada = IMAGEN_POR_NOMBRE[normalizarNombre(criatura.nombre)] ?? IMAGEN_POR_DEFECTO;
   const imagen = criatura.imagenUrl || imagenPredeterminada;
 
   return (

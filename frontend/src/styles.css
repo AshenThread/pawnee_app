@@ -132,6 +132,9 @@ td { border-top: 1px solid #edf0ed; color: #40504a; font-size: 13px; padding: 16
 .danger-number, .detail-stat-value { color: #193f35; font-size: 25px; letter-spacing: -.04em; }
 .danger-number small { color: #8b9690; font-size: 12px; font-weight: 500; letter-spacing: 0; }
 .detail-danger-track { width: 72px; }
+.creature-description { align-items: center; border-bottom: 1px solid #edf0ed; display: flex; gap: 22px; margin-top: 24px; padding-bottom: 24px; }
+.creature-description .creature-image { flex: 0 0 128px; height: 128px; width: 128px; }
+.creature-description .muted-copy { margin-bottom: 14px; }
 .skills-block { padding-top: 24px; }
 .skill-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
 .skill-list span { background: #edf2ed; border-radius: 5px; color: #52625b; font-family: "DM Mono", monospace; font-size: 11px; padding: 7px 9px; }
@@ -176,6 +179,8 @@ td { border-top: 1px solid #edf0ed; color: #40504a; font-size: 13px; padding: 16
   .detail-grid { grid-template-columns: 1fr; }
   .detail-stats { gap: 12px; grid-template-columns: 1fr 1fr; }
   .detail-stats > div:first-child { grid-column: 1 / -1; }
+  .creature-description { align-items: flex-start; flex-direction: column; }
+  .creature-description .creature-image { flex-basis: 100px; height: 100px; width: 100px; }
   .toolbar-controls { align-items: stretch; flex-direction: column; width: 100%; }
   .search-control input, .toolbar-controls select { width: 100%; }
   .table-toolbar .search-control { width: 100%; }
