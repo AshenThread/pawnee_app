@@ -8,9 +8,11 @@ import { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { crearCriatura, actualizarCriatura, obtenerCriaturaPorId } from "../api/criaturasApi";
 import { CriaturaFormulario, TIPOS_CRIATURA, ESTADOS_INVESTIGACION } from "../tipos";
+import { AppLayout } from "../componentes/AppLayout";
 
 const FORM_VACIO: CriaturaFormulario = {
   nombre: "",
+  imagenUrl: "",
   tipo: "mitica",
   habilidades: [],
   nivelPeligro: 5,
@@ -35,6 +37,7 @@ export function FormularioCriatura() {
       .then((criatura) => {
         setForm({
           nombre: criatura.nombre,
+          imagenUrl: criatura.imagenUrl ?? "",
           tipo: criatura.tipo,
           habilidades: criatura.habilidades,
           nivelPeligro: criatura.nivelPeligro,
@@ -81,21 +84,7 @@ export function FormularioCriatura() {
   if (cargando) return <p>Cargando datos de la criatura...</p>;
 
   return (
-    <main className="page-shell">
-      <header className="topbar">
-        <Link className="brand" to="/">
-          <span className="brand-mark" aria-hidden="true">P</span>
-          <span>
-            <strong>Departamento de Pawnee</strong>
-            <small>Fenómenos inexplicables</small>
-          </span>
-        </Link>
-        <nav className="main-nav" aria-label="Navegación principal">
-          <Link className="nav-link nav-link-active" to="/">Criaturas</Link>
-          <Link className="nav-link" to="/avistamientos">Avistamientos</Link>
-        </nav>
-      </header>
-
+    <AppLayout area="criaturas">
       <section className="page-heading page-heading-form">
         <div>
           <p className="eyebrow">Registro central · Área 01</p>
@@ -121,14 +110,20 @@ export function FormularioCriatura() {
 
           <div className="form-grid">
             <div className="form-field form-field-wide">
-              <label htmlFor="nombre">Nombre de la criatura</label>
+              <label htmlFor="nombre">Nombre de la criatura <span aria-hidden="true">*</span></label>
           <input
             id="nombre"
             type="text"
+            required
                 placeholder="Ej. El Guardián del Lago"
             value={form.nombre}
             onChange={(e) => setForm({ ...form, nombre: e.target.value })}
           />
+            </div>
+            <div className="form-field form-field-wide">
+              <label htmlFor="imagenUrl">Imagen <span>(opcional, URL pública)</span></label>
+              <input id="imagenUrl" type="url" placeholder="https://..." value={form.imagenUrl ?? ""} onChange={(e) => setForm({ ...form, imagenUrl: e.target.value })} />
+              <small className="field-help">Si se deja vacío, se mostrará una ilustración automática según el tipo.</small>
             </div>
 
             <div className="form-field">
@@ -151,6 +146,7 @@ export function FormularioCriatura() {
               <input
                 id="nivelPeligro"
                 type="number"
+                required
                 min={1}
                 max={10}
                 value={form.nivelPeligro}
@@ -163,6 +159,7 @@ export function FormularioCriatura() {
           <input
             id="habilidades"
             type="text"
+            aria-describedby="habilidades-ayuda"
                 placeholder="Ej. invisibilidad, telepatía"
             value={habilidadesTexto}
             onChange={(e) => setHabilidadesTexto(e.target.value)}
@@ -193,6 +190,6 @@ export function FormularioCriatura() {
           </div>
         </form>
       </section>
-    </main>
+    </AppLayout>
   );
 }

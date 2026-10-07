@@ -12,6 +12,7 @@ export type EstadoInvestigacion = "activa" | "en_investigacion" | "descartada";
 
 export interface ICriatura extends Document {
   nombre: string;
+  imagenUrl?: string;
   tipo: TipoCriatura;
   habilidades: string[];
   nivelPeligro: number;
@@ -23,6 +24,7 @@ export interface ICriatura extends Document {
 const CriaturaSchema = new Schema<ICriatura>(
   {
     nombre: { type: String, required: [true, "El nombre de la criatura es obligatorio"], trim: true },
+    imagenUrl: { type: String, trim: true, default: "" },
     tipo: {
       type: String,
       enum: {

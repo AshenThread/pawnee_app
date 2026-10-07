@@ -13,6 +13,7 @@ export const ESTADOS_INVESTIGACION: EstadoInvestigacion[] = ["activa", "en_inves
 export interface Criatura {
   _id: string;
   nombre: string;
+  imagenUrl?: string;
   tipo: TipoCriatura;
   habilidades: string[];
   nivelPeligro: number;
