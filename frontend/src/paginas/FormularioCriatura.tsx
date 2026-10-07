@@ -123,7 +123,7 @@ export function FormularioCriatura() {
             <div className="form-field form-field-wide">
               <label htmlFor="imagenUrl">Imagen <span>(opcional, URL pública)</span></label>
               <input id="imagenUrl" type="url" placeholder="https://..." value={form.imagenUrl ?? ""} onChange={(e) => setForm({ ...form, imagenUrl: e.target.value })} />
-              <small className="field-help">Si se deja vacío, se mostrará una ilustración automática según el tipo.</small>
+              <small id="imagen-ayuda" className="field-help">Si se deja vacío, se mostrará una ilustración automática según el tipo.</small>
             </div>
 
             <div className="form-field">
@@ -164,6 +164,7 @@ export function FormularioCriatura() {
             value={habilidadesTexto}
             onChange={(e) => setHabilidadesTexto(e.target.value)}
           />
+          <small id="habilidades-ayuda" className="field-help">Separa cada habilidad con una coma.</small>
             </div>
 
             <div className="form-field">
