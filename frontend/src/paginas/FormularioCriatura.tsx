@@ -81,7 +81,7 @@ export function FormularioCriatura() {
     }
   }
 
-  if (cargando) return <p>Cargando datos de la criatura...</p>;
+  if (cargando) return <AppLayout area="criaturas"><p className="feedback-message" aria-live="polite">Cargando datos de la criatura...</p></AppLayout>;
 
   return (
     <AppLayout area="criaturas">
